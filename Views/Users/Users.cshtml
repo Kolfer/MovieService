@@ -1,0 +1,103 @@
+﻿@using MoviesDomain.Entities.AuthEntities;
+
+@model Users
+
+@section metatags{
+    <meta name="keywords" content="Account Users, Users -  @Model.Name,
+          Account Users - @Model.Name, @Model.Condition"/>
+}
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";    
+}
+
+
+<div class="container mt-md-3">
+
+    <div class="row mt-md-1">
+        <div class="col-md-4">
+            <img class="img-thumbnail" src=@Model.PathOfPhoto
+                 width="200" height="200" alt=@Model.Name />
+        </div>
+        <div class="col-md-4">
+            <h2>@Model.Name</h2>
+            <table>
+               <tbody>
+                   <tr class="hrStyle">
+                       <td class="type">Gender</td>
+                       <td>
+                           @if (Model.Gender.HasValue == false)
+                           {
+                               @: Unknown
+                           }
+                           else if(Model.Gender == true)
+                           {
+                               @: Female;
+                           }
+                           else
+                           {
+                               @: Male
+                           }
+                       </td>
+                   </tr>
+                    <tr class="hrStyle">
+                        <td class="type">Date of registration</td>
+                        <td>@Model.AddedDate </td>
+                    </tr>
+                    <tr class="hrStyle">
+                        <td class="type">Country</td>
+                        <td>
+                            @if( Model.Country == null)
+                            {
+                                @: Unknown
+                            }
+                            else
+                            {
+                                @Model.Country
+                            }
+                        </td>
+                    </tr>
+                    <tr class="hrStyle">
+                        <td class="type">City</td>
+                        <td class="type">
+                        @if (Model.City == null)
+                        {
+                            @: Unknown
+                        }
+                        else
+                        {
+                            @Model.City
+                        }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        @if (Model.inRoles("Authorized") && User.Identity.Name == Model.Email)
+        {
+            <div class="col-md-4">
+                @using (Html.BeginForm("Edit", "Users", FormMethod.Post,
+                    new { @class = "form-signin" }))
+                {
+                    <button class="btn-primary">Edit profile</button>
+                }
+            </div>
+        }
+        </div>
+        <div class="row">
+     
+        <div class="col-md-4 mx-md-1 my-md-1 filmD">
+
+        </div>
+        <div class="col-md-4 mx-md-1 my-md-1 filmD">
+
+        </div>
+        <div class="col-md-4 filmD">
+
+        </div>
+        <div class="col-md-4 filmD">
+
+        </div>
+    </div>
+</div>

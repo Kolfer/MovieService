@@ -1,0 +1,161 @@
+﻿@model MoviesDomain.Entities.People
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+@{
+    ViewBag.Title = "Person";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string path = @"https://image.tmdb.org/t/p/w500" + Model.ProfilePath;
+    int i = 0;
+    int old = 0;
+    var genres = Model.getGenres();
+    if (Model.Birthday.HasValue)
+    {
+        if (Model.Deathday != default(DateTime))
+        {
+            old = Model.Deathday.Value.Year - Model.Birthday.Value.Year;
+        }
+        else
+        {
+            old = DateTime.Now.Year - Model.Birthday.Value.Year;
+        }
+    }
+}
+
+@section metatags{
+    <meta name="keywords" content="@Model.Name, 
+          @foreach( var movie in Model.getBestMovies())
+              { @: @movie.Name, 
+              }"/>
+}
+
+
+<div class="container mt-md-3">
+
+<h3>@Model.Name</h3>
+<div class="row mt-md-1">
+    <div class="col-md-4">
+        <img class="img-thumbnail" src=@path
+             width="250" height="375" alt=@Model.Name />
+    </div>
+    <table>
+        <tbody>
+            <tr class="hrStyle">
+                <td class="type">Place of Birth : </td>
+                <td>@Model.PlaceOfBirth </td>
+            </tr>
+            @if (Model.Birthday.HasValue)
+            {
+                <tr class="hrStyle">
+                    <td class="type">Old : </td>
+                    <td>@old years</td>
+                </tr>
+            }
+            @if (Model.Gender != 0)
+            {
+                <tr class="hrStyle">
+                    <td class="type">Gender : </td>
+                    @if (Model.Gender == 1)
+                    {
+                        <td>Female</td>
+                    }
+                    else if (Model.Gender == 2)
+                    {
+                        <td>Male</td>
+                    }
+                </tr>
+            }
+            @if ( genres.Count() != 0)
+            {
+                <tr class="hrStyle">
+                    <td class="type">Genres : </td>
+                    <td>
+                        @foreach (var genre in genres)
+                        {
+                            @: @Html.ActionLink(genre.Name, "Genre", "Movies",
+                                    new { genre = genre.Name }, null)
+                        }
+                    </td>
+                </tr>
+            }
+            @if (Model.Jobs.Count != 0)
+            {
+                <tr class="hrStyle">
+                    <td class="type">Jobs :</td>
+                    <td>
+                        @foreach (var job in Model.Jobs)
+                        {
+                            @: @job.Name 
+                        }
+                    </td>
+                </tr>
+            }
+            @if (Model.Popularity != 0)
+            {
+                <tr class="hrStyle">
+                    <td class="type">Popularity : </td>
+                    <td>@Model.Popularity</td>
+                </tr>
+            }
+                <tr class="hrStyle">
+                    <td class="type">Count Movies : </td>
+                    <td>@Model.getCountMovie()</td>
+                </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="row mt-md-1">
+        @if (Model.Casts.Count > 1)
+        {
+            <canvas id="castsPerson"></canvas>
+            <script>
+            var films = [];
+            var votes = [];
+            var years = [];
+            @foreach( var cast in Model.Casts)
+            {
+                if( cast.Movie.VoteAverage != 0 &&
+                    cast.Movie.ReleaseDate != null)
+                {
+                    @: films.push("@cast.Movie.Name")
+                    @: votes.push(parseFloat(@cast.Movie.VoteAverage))
+                    @: years.push(parseInt(@cast.Movie.ReleaseDate.Year, 10))
+                }
+            }
+            CreateBarChart(films, votes, years);
+             </script>
+        }
+    </div>
+    <div class="row mt-md-1">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name movie</th>
+                    <th>Character</th>
+                    <th>Vote movie</th>
+                    <th>Vote count</th>
+                    <th>Release date</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var cast in Model.Casts)
+            {
+                if (cast.Movie.VoteAverage != 0 &&
+                    cast.Movie.ReleaseDate != null)
+                {
+                    <tr>
+                    <td>
+                    @Html.ActionLink(cast.Movie.Name, "Movie", "Movies",
+                            new { id = cast.MovieId }, null)
+                    </td>
+                    <td>@cast.Name</td>
+                    <td>@cast.Movie.VoteAverage</td>
+                    <td>@cast.Movie.VoteCount</td>
+                    <td>@cast.Movie.ReleaseDate.Year</td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+
+    </div>
+</div>

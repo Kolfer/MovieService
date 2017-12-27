@@ -1,0 +1,29 @@
+﻿@using AuthecantionWithCookie.Abstract;
+@using MoviesDomain.Entities.AuthEntities;
+
+@model  Users
+
+@if (Model != null && Model.inRoles("Authorized"))
+{
+    <li class="nav-item">
+        @Html.ActionLink("Log Out", "LogOut", "Authorize", new { area = "" },
+                     new { @class = "nav-link" })
+    </li>
+    <a href="/Users/User?id=@Model.Id">
+        <li>
+            @Html.ActionLink(@Model.Name, "Users", "Users", new { id = @Model.Id },
+                             new { @class = "nav-link" }  )
+        </li>
+    </a>
+}
+else
+{
+    <li class="nav-item">
+        @Html.ActionLink("Sign In", "SignIn", "Authorize", new { area = "" },
+                        new { @class = "nav-link" })
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Registration", "Register", "Authorize", new { area = "" },
+                        new { @class = "nav-link" })
+    </li>
+}

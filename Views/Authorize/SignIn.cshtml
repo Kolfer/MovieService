@@ -1,0 +1,38 @@
+﻿@model MovieService.Models.LoginView
+
+@section metatags{
+    <meta name="keywords" content="sign in, sign in movie service,
+          sign in movie site, sign in movie web site service, sign on movie web site" />
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Sign In";
+}
+
+<div class="container mt-md-5 offset-md-4">
+    @using (Html.BeginForm("SignIn", "Authorize", FormMethod.Post,
+                            new { @class = "form-signin" }))
+    {
+
+        <h2 class="form-signin-heading">Sign in</h2>
+        <div class="form-group">
+
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value=@Model.email>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" value=@Model.password>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-primary" value="Sign In">
+                </div>
+            </div>
+        </div>
+    }
+</div> 
+

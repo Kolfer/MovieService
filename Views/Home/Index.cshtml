@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    string pathSource = @"D:\WebProjects\MovieService\Source";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@section metatags{
+    <meta name="keywords" content="movie service, movie service web site,
+          better movies, better movies web site, top movies web site,
+          show actor on movie web site, show better movies" />
+}
+
+@{ 
+    string path = "https://moviefilesstorage.blob.core.windows.net/containerfile/";
+    var topMovies = path + "TOP100(2).jpg";
+    var actors = path + "actors.jpg";
+    var production = path + "Production.jpg";
+    var genres = path + "genres1.jpg";
+
+}
+
+<div class="container mt-lg-4 pt-lg-4 mb-lg-4 pb-lg-4" style="width:75%">
+    <div class="divBorder">
+        <blockquote>
+            <h3 style="text-align:center; font-family: 'Comic Sans MS';">Life could be wonderful if people would leave you alone</h3>
+            <p style="text-align:right; font-style:italic; font-family:'Comic Sans MS';">
+                Charlie Chaplin
+            </p>
+        </blockquote>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class=divBorder margin:auto">
+            <a href='@Url.Action("TopMovies", "Movies")'>
+                <img src=@topMovies class="img-thumbnail"
+                     width="250" height="250" alt="TOP100" style="width:100%" />
+            </a>
+            <h5 style="text-align:center">
+                @Html.ActionLink("TOP 100", "TopMovies", "Movies",
+                new { }, new { @class = "link-class font-heading", style = "text-center" })
+            </h5>
+
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="divBorder margin:auto">
+            <a href='@Url.Action("PersonAll", "Persons")'>
+                <img src=@actors class="img-thumbnail"
+                     width="250" height="250" alt="actors" style="width:100%" />
+            </a>
+            <h5 style="text-align:center">
+                @Html.ActionLink("Actors and Crews", "PersonAll", "Persons",
+                 new { }, new { @class = "link-class font-heading" })
+            </h5>
+
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="divBorder margin:auto">
+            <a href='@Url.Action("TopMovies", "Movies")'>
+                <img src=@production class="img-thumbnail"
+                     alt="Production Companies" width="250" height="250" style="width:100%" />
+            </a>
+            <h5 style="text-align:center"> 
+                @Html.ActionLink("Production Companies", null, null,
+                 new { }, new { @class = "link-class font-heading" })
+            </h5>
+
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="divBorder margin:auto">
+            <a href='@Url.Action("AllGenres", "Genre")'>
+                <img src=@genres class="img-thumbnail"
+                     alt="TOP100" width="250" height="250" style="width:100%" />
+            </a>
+            <h5 style="text-align:center">
+                @Html.ActionLink("Movies by genres", "AllGenres", "Genre",
+                 new { }, new { @class = "link-class font-heading" })
+            </h5>
+
+        </div>
+    </div>
+</div>
+
+<hr class="featurette-divider">
+
+

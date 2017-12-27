@@ -1,0 +1,55 @@
+﻿@model MovieService.Models.RegisterView 
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Registration";
+}
+
+@section metatags{
+    <meta name="keywords"  content="registration, registration movie service,
+          enrollment movie site, recording movie web site service, record on movie web site,
+          registration on movie web site" />   
+}
+
+<div class="container mt-md-5 offset-md-4">
+    @using (Html.BeginForm("Register", "Authorize", FormMethod.Post,
+                            new { @class = "form-signin" }))
+    {
+        <h2 class="form-signin-heading">Register</h2>
+        <div class="form-group">
+            <input type="text" name="UserName" id="username" tabindex="1" class="form-control" placeholder="User Name" value=@Model.UserName>
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value=@Model.email>
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" value=@Model.password>
+        </div>
+        <div class="form-group">
+            <input type="password" name="confirmPassword" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" value="@Model.confirmPassword">
+        </div>
+        <div class="form-group">
+            <input type="text" name="country" id="country" tabindex="3" class="form-control" placeholder="Enter country" value="@Model.Country">
+        </div>
+        <div class="form-group">
+            <input type="text" name="city" id="city" tabindex="4" class="form-control" placeholder="Enter city" value="@Model.City" />
+        </div>
+        <div class="form-group">
+            <select name="gender"  value="@Model.Gender">
+                <option>Unknow</option>
+                <option>Female</option>
+                <option>Male</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-primary" value="Register">
+                </div>
+            </div>
+        </div>
+        @Html.ValidationSummary()
+}
+</div>
+

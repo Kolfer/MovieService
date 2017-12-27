@@ -1,0 +1,66 @@
+﻿@using AuthecantionWithCookie.Abstract;
+@using AuthecantionWithCookie.Concrete;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @RenderSection("metatags")
+    <title>@ViewBag.Title - Movies</title>
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/bootstrap-grid.css")
+    @Styles.Render("~/Content/bootstrap-reboot.css")
+    @Styles.Render("~/Content/Site.css?12345678912")
+    @Styles.Render("~/Content/bootstrap-grid.css.map")
+    @Styles.Render("~/Content/bootstrap-reboot.css.map")
+    @Styles.Render("~/Content/bootstrap.css.map")
+</head>
+<body class="backgr">
+    <header>
+        <div class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="CollapseNavbar">
+                    <ul class="navbar-nav mr-md-auto">
+                        <li class="nav-item">
+                            @Html.ActionLink("Movies", "Index", "Home", new { area = "" },
+                             new { @class = "navbar-brand nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Contact", "Contact", "Home", new { area = "" },
+                             new { @class = "nav-link" })
+                        </li>
+                        @Html.Action("UserLogin", "Home")
+                    </ul>
+                    <form action="Home/Search" class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" name="query" type="text" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main role="main" class="mt-md-2">
+        <div class="container body-content col-md-8 offset-md-2 my-md-5">
+            @RenderBody()
+        </div>
+    </main>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111586142-1"></script>
+    <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-111586142-1');
+    </script>
+
+    <footer class="footer navbar fixed-bottom">
+        <p>Created by Anton Serikov & Oleg Podugin</p>
+    </footer>
+</body>
+</html>

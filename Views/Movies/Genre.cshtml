@@ -1,0 +1,106 @@
+﻿@using MoviesDomain.Entities
+@using MovieService.Models;
+@model Tuple<PagingInfo,IEnumerable<Movie>>
+
+@{
+    ViewBag.Title = "Genre";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int currentPage;
+}
+
+@section metatags{
+      <meta name="keywords" content="@ViewBag.Genre,
+        @foreach ( var movie in Model.Item2) {
+                @: @movie.Name,
+         } "/>
+      }
+
+    @foreach (var movie in Model.Item2 )
+    {
+        string path = @"https://image.tmdb.org/t/p/w500" + movie.Poster_path;
+
+        <div class="my-md-2">
+            <div class="row ml-md-1">
+                    <h2>@Html.ActionLink(movie.Name, "Movie", "Movies", new { id = movie.Id }, null) </h2>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <img class="img-thumbnail" src="@path" width="250" height="375" />
+                </div>
+                <div class="col-md-7">
+                    <div class="row">
+                        <h5>Year :  </h5>
+                        @movie.ReleaseDate.ToShortDateString()
+                    </div> 
+                    <div class="row">
+                        <h5>Country :  </h5>
+                        @foreach (var country in movie.ProductionCountries)
+                        {
+                            @:  @country.Name,
+                        }
+                    </div>
+                    <div class="row">
+                        <h5>Сompanies :  </h5>
+                        @foreach (var companies in movie.ProductionCompanies)
+                        {
+                            @:  @companies.Name,
+                    }
+                    </div>
+
+                    <div class="row">
+                            <h5>Genres :  </h5>
+                            @foreach (var genre in movie.Genre)
+                            {
+                                @:  @Html.ActionLink(genre.Name, "Genre", "Movies", new { genre = genre.Name }, null),
+                            }
+                    </div>
+                    
+                    <div class="row">
+                        <h5>Runtime :  </h5>
+                        @movie.Runtime minutes
+                    </div>
+
+                    <div class="row">
+                        <h5>Budget :  </h5>
+                        @movie.Budget$
+                    </div>
+                    <div class="row">
+                        <h5>Vote Average :  </h5>
+                        @movie.VoteAverage
+                    </div>
+                    <div class="row">
+                        <h5>Vote Count :  </h5>
+                        @movie.VoteCount
+                    </div>
+                </div>
+            </div>
+       </div>
+       <hr class="hrStyleDashed my-md-2"/>
+    }
+    
+<div class="col offset-md-4">
+    <ul class="pagination">
+
+        @for (int i = 1; i < Model.Item1.TotalPages; ++i)
+        {
+            if (i == Model.Item1.CurrentPage)
+            {
+                <li class="page-item active">
+                    @Html.ActionLink(i.ToString(), "Genre", "Movies",
+                   new { genre = ViewBag.Genre, page = i }, new { @class = "page-link" })
+            </li>
+            }
+            else
+            {
+                <li>
+                    @Html.ActionLink(i.ToString(), "Genre", "Movies",
+                   new { genre = ViewBag.Genre, page = i }, new { @class = "page-link" })
+            </li>
+            }
+        }
+
+    </ul>
+
+</div>
+
+

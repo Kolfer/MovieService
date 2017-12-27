@@ -1,0 +1,141 @@
+﻿@model MoviesDomain.Entities.Movie
+
+@section metatags{
+    <meta name="keywords" content="@Model.Name, @Model.Original_title,@Model.Tagline,
+          @foreach( var cast in Model.Casts.Take(10))
+          { @: @cast.People.Name, 
+          }"/>    
+}
+
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string path = @"https://image.tmdb.org/t/p/w500" + Model.Poster_path;
+    int i = 1;
+}
+
+
+<div class="container mt-md-3">
+
+    <h2>@Model.Name</h2>
+    <div class="row mt-md-1">
+        <div class="col-md-4">
+            <img class="img-thumbnail" src=@path
+                 width="250" height="375" alt=@Model.Name /> 
+        </div>
+        <div class="col-md-6">
+            <table>
+            <tbody>
+                <tr class="hrStyle">
+                    <td class="type">Tagline</td>
+                    <td>@Model.Tagline </td>
+                </tr>
+                <tr class="hrStyle">
+                    <td class="type">Status</td>
+                    <td>@Model.Status </td>
+                </tr>
+                <tr class="hrStyle">
+                    <td class="type">Production Countries</td>
+                    <td>
+                    @foreach (var country in Model.ProductionCountries)
+                    {
+                        @: @country.Name
+                    }
+                    </td>
+                </tr>
+                @if (Model.Status == "Released")
+                {
+                    <tr class="hrStyle">
+                        <td class="type">Release Data</td>
+                        <td>@Model.ReleaseDate </td>
+                    </tr>
+                }
+                @if (Model.Budget != 0)
+                {
+                    <tr class="hrStyle">
+                        <td class="type">Budget</td>
+                        <td>$@Model.Budget</td>
+                    </tr>
+                }
+                @if (Model.Revenue != 0)
+                {
+                    <tr class="hrStyle">
+                        <td class="type">Revenue</td>
+                        <td>$@Model.Revenue</td>
+                    </tr>
+                }
+                @if (Model.Runtime.HasValue)
+                {
+                    <tr class="hrStyle">
+                        <td class="type">Runtime</td>
+                        <td>@Model.Runtime minutes</td>
+                    </tr>
+                }
+                <tr class="hrStyle">
+                    <td class="type">Production Countries</td>
+                    <td>
+                        @foreach (var genre in Model.Genre)
+                        {
+                            @: @Html.ActionLink(genre.Name, "Genre", "Movies", 
+                                    new { genre = genre.Name }, null  )
+                        }
+                    </td>
+                </tr>
+                <tr class="hrStyle">
+                    <td class="type">Vote Average</td>
+                    <td>@Model.VoteAverage      
+                    </td>
+                </tr>
+                <tr class="hrStyle">
+                    <td class="type">Vote Count</td>
+                    <td>
+                        @Model.VoteCount
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+ 
+    <div class="row mt-md-1">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>№</th>
+                    <th>Name</th>
+                    <th>Personage</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var person in Model.Casts.Take(10))
+            {
+                string peoplePath = null;
+                if( person.People.ProfilePath == null)
+                {
+                    peoplePath = "Source/userIcon.png";
+                }
+                else
+                {
+                     peoplePath = @"https://image.tmdb.org/t/p/w500"
+                                        + person.People.ProfilePath;
+                }
+               
+             <tr>
+                    <td>@i</td>
+                    <td>
+                        <img src=@peoplePath height="45" width="32" />
+                        @Html.ActionLink(person.Name, @"Person", @"Persons",
+                                new { id = person.PeopleId }, null)
+                    </td>
+                    <td>@person.CharacterCast</td>
+            </tr>
+                ++i;
+            }
+            </tbody>
+            </table>
+        @Html.ActionLink("...show all casts", "AllCastMovie", "Movies",
+               new { id = Model.Id }, null);
+        </div>
+</div>
+

@@ -1,0 +1,56 @@
+
+        //----------------------------------------------------------------//
+        //Genre
+
+        void addGenre(Genre genre);
+        void RemoveGenre(Genre genre);
+        Genre findGenre(string genre);
+
+        //----------------------------------------------------------------//
+        //People
+
+        void addPeople(People people);
+        void removePeople(People people);
+        void findPeople(string name);
+
+        //----------------------------------------------------------------//
+        //Departments
+
+        void addDepartment(Departments departments);
+        void removeDepartment(Departments departments);
+        Departments findDepartment(string department);
+
+        //----------------------------------------------------------------//
+        //Cast
+
+        void addCast(Casts cast);
+        Casts findCast(string NamePeople);
+        void removeCast(Casts cast);
+
+        //----------------------------------------------------------------//
+        //Job
+
+        void addJob(Job job);
+        void findJob(string job);
+        void removeJob(Job job);
+
+        //----------------------------------------------------------------//
+        //ProductionCompanies
+
+        void addProductionCompanies(ProductionCompanies companies);
+        void removeProductionCompanies(ProductionCompanies companies);
+        void findProductionCompanies(string name);
+
+        //----------------------------------------------------------------//
+        //ProductionCountries
+
+        void addProductionCountries(ProductionCountries countries);
+        void removeProductionCountries(ProductionCountries countries);
+        void findProductionCountries(string name);
+
+        //----------------------------------------------------------------//
+        //Movie
+
+        void addMovie(Movie movie);
+        void removeMovie(Movie movie);
+        void findMovie(string title);

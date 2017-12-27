@@ -1,0 +1,107 @@
+﻿@using MovieService.Models
+
+@model PeopleListModel
+
+
+@{
+    ViewBag.Title = "PersonAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section metatags{
+    <meta name="keywords" content="Persons Movie Service,
+        @foreach ( var people in Model.people) {
+                @: @people.Name,
+         } " />
+}
+
+@foreach (var people in Model.people)
+{
+    string path = @"https://image.tmdb.org/t/p/w500" + people.ProfilePath;
+
+    <div class="my-md-2">
+        <div class="row offset-md-1">
+            <h2>@Html.ActionLink(people.Name, "Person", "Persons", new { id = people.Id }, null) </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <img class="img-thumbnail" src="@path" width="250" height="375" />
+            </div>
+            <div class="col-md-7">
+                <div class="row">
+                    <h5>Birth :  </h5>
+                    @people.Birthday.Value.ToShortDateString()
+                </div>
+
+                <div class="row">
+                    <h5>Place of birth :  </h5>
+                    @people.PlaceOfBirth
+                </div>
+
+                <div class="row">
+                    <h5>Genre :  </h5>
+                    @foreach (var genre in people.getGenres())
+                    {
+                        @:  @Html.ActionLink(genre.Name, "Genre", "Movies", new { genre = genre.Name }, null),
+                      }
+                </div>
+                <div class="row">
+                    <h5>Jobs :  </h5>
+                    @foreach (var job in people.Jobs)
+                    {
+                        @:  @job.Name,
+                    }
+                </div>
+
+                <div class="row">
+                    <h5>Personage :  </h5>
+                    @foreach (var personage in people.Casts.Select( c => c.CharacterCast) )
+                    {
+                        @:  @personage,
+                    }
+                </div>
+
+                <div class="row">
+                    <h5>Popularity :  </h5>
+                    @people.Popularity 
+                </div>
+
+                <div class="row">
+                    <h5>Rating :</h5>
+                    @people.getRatingCast()
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <hr class="hrStyleDashed my-md-2" />
+}
+
+<div class="col offset-md-4">
+    <ul class="pagination">
+
+        @for (int i = 1; i < Model.pagingInfo.TotalPages; ++i)
+        {
+            if (i == Model.pagingInfo.CurrentPage)
+            {
+                <li class="page-item active">
+                    @Html.ActionLink(i.ToString(), "PersonAll", "Persons",
+                   new {  page = i }, new { @class = "page-link" })
+                </li>
+            }
+            else
+            {
+                <li>
+                    @Html.ActionLink(i.ToString(), "PersonAll", "Persons",
+                   new { page = i }, new { @class = "page-link" })
+                </li>
+            }
+        }
+
+    </ul>
+
+</div>
+
+
+

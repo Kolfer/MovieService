@@ -1,0 +1,68 @@
+﻿@using MoviesDomain.Abstract;
+@using MoviesDomain.Entities;
+
+@model Tuple<IEnumerable<Movie>, IEnumerable<People>>
+
+@section metatags{
+        <meta name="keywords" content="@ViewBag.Query" />    
+}
+
+@{
+    ViewBag.Title = ViewBag.Query;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int count = 0;
+    var type = Model.Item1.GetType();
+    var type2 = Model.Item2.GetType();
+    var movies = Model.Item1.Cast<Movie>();
+    var peoples = Model.Item2.Cast<People>();
+    int countMovies = movies.Count();
+    int countPeoples = peoples.Count();
+}
+
+@if( countMovies + countPeoples == 0)
+{
+    <div class="row mt-md-4 offset-4">
+        <div class="col-md-2" >
+            <img src="https://moviefilesstorage.blob.core.windows.net/containerfile/smiley_sad.png" 
+                 width="101" height="101"/>
+        </div>
+        <div class="col-md-4 mt-md-2">
+            <h2>From query<strong>@ViewBag.Query</strong>nothing found</h2>
+        </div>
+    </div>
+}
+else
+{
+       @: Found
+       if( countMovies == 1 )
+       {
+            @countMovies @: Movie 
+       }
+       else
+       {
+           @countMovies @: Movies
+       }
+    foreach( var movie in movies)
+    {
+        string path = @"https://image.tmdb.org/t/p/w500" + movie.Poster_path;
+       <div class="row">
+           <div class="col-md-3">
+               <img class="img-thumbnail" src=@path
+                    width="50" height="75" alt=@movie.Name /> 
+           </div>
+           <div class="col-md-9">
+              <div class="row">
+                  @movie.Name
+              </div>
+              <div class="row">
+                  Actor
+                  @foreach( var cast in movie.Casts)
+                  {
+                       @cast.CharacterCast @:-  @cast.People.Name
+                  }
+              </div>
+           </div>
+       </div>
+   }
+}
+

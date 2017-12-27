@@ -1,0 +1,257 @@
+﻿@using MoviesDomain.Entities;
+@model List<Genre>
+
+@{
+    ViewBag.Title = "All Genres";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    string path = "https://moviefilesstorage.blob.core.windows.net/containerfile/";
+    var action = path + "action.png";
+    var adventure = path + "adventure.png";
+    var animation = path + "animation.png";
+    var comedy = path + "comedy.png";
+    var crime = path + "crime.png";
+    var drama = path + "drama.png";
+    var family = path + "family.png";
+    var fantasy = path + "fantasy.png";
+    var history = path + "history.png";
+    var horror = path + "horror.png";
+    var music = path + "music.png";
+    var mystery = path + "mystery.png";
+    var romance = path + "romance.png";
+    var scifi = path + "sci-fi.png";
+    var thriller = path + "thriller.png";
+    var tv = path + "tv.png";
+    var war = path + "war.png";
+    var western = path + "western.png";
+}
+
+@section metatags{
+    <meta name="keywords" content="All Genres, All genres on movie site,
+          @foreach( var genre in Model)
+          { @: @genre,
+          }" />
+}
+
+
+<div class="container mt-md-3">
+
+    <h2 style="text-align:center">Genres : </h2>
+
+    <div class="row mt-lg-1 pt-md-3">
+
+        <div class=" divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+                            new { genre = "Action" })'>
+                <img src=@action width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Action", "Genre", "Movies",
+                                new { genre = "Action" }, null)
+                </h5>
+        </div>
+
+        <div class=" divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+                           new { genre = "Adventure" })'>
+                <img src=@adventure width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Adventure", "Genre", "Movies",
+                               new { genre = "Adventure" }, null)
+                </h5>
+        </div>
+
+    <div class=" divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+                           new { genre = "Animation" }, null)'>
+                <img src=@animation width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Animation", "Genre", "Movies",
+                new { genre = "Animation" }, null)
+                </h5>
+        </div>
+    </div>
+
+    <div class="row mt-lg-1 pt-md-3">
+        <div class=" divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+                new { genre = "Comedy" })'>
+                <img src=@comedy width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Comedy", "Genre", "Movies",
+                    new { genre = "Comedy" }, null)
+                </h5>
+        </div>
+
+        <div class=" divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+                                 new { genre = "Crime" })'>
+                <img src=@crime width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Crime", "Genre", "Movies",
+                                     new { genre = "Crime" }, null)
+                </h5>
+        </div>
+
+        <div class="divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+            new { genre = "Drama" })'>
+                <img src=@drama width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                      @Html.ActionLink("Drama", "Genre", "Movies",
+                new { genre = "Drama" }, null)
+                  </h5>
+        </div>
+    </div>
+
+    <div class="row mt-lg-1 pt-md-3">
+
+        <div class="divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+             new { genre = "Family" })'>
+                <img src=@family width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Family", "Genre", "Movies",
+                 new { genre = "Family" }, null)
+                </h5>
+        </div>
+
+        <div class="divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+            new { genre = "Fantasy" })'>
+                <img src=@fantasy width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Fantasy", "Genre", "Movies",
+                new { genre = "Fantasy" }, null)
+                </h5>
+        </div>
+
+        <div class="divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+            new { genre = "History" })'>
+                <img src=@history width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                     @Html.ActionLink("History", "Genre", "Movies",
+                new { genre = "History" }, null)
+                 </h5>
+        </div>
+    </div>
+
+    <div class="row mt-lg-1 pt-md-3">
+
+        <div class="divBorder" style="margin:auto">
+            <a href='@Url.Action( "Genre", "Movies",
+             new { genre = "Horror" })'>
+                <img src=@horror width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Horror", "Genre", "Movies",
+                 new { genre = "Horror" }, null)
+                </h5>
+        </div>
+
+        <div class="divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+             new { genre = "Music" })'>
+                <img src=@music width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Music", "Genre", "Movies",
+                 new { genre = "Music" }, null)
+                </h5>
+        </div>
+
+        <div class="divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+             new { genre = "Mystery" })'>
+                <img src=@mystery width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Mystery", "Genre", "Movies",
+                 new { genre = "Mystery" }, null)
+                </h5>
+        </div>
+    </div>
+
+
+    <div class="row mt-lg-1 pt-md-3">
+
+        <div class="divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+             new { genre = "Romance" })'>
+                <img src=@romance width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Romance", "Genre", "Movies",
+                 new { genre = "Romance" }, null)
+                </h5>
+        </div>
+
+        <div class="divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+             new { genre = "Science Fiction" })'>
+                <img src=@scifi width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Science Fiction", "Genre", "Movies",
+                 new { genre = "Science Fiction" }, null)
+                </h5>
+        </div>
+
+        <div class="divBorder" style="margin:auto">
+            <a href='@Url.Action( "Genre", "Movies",
+             new { genre = "Thriller" })'>
+                <img src=@thriller width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Thriller", "Genre", "Movies",
+                 new { genre = "Thriller" }, null)
+                </h5>
+        </div>
+    </div>
+
+    <div class="row mt-lg-1 pt-md-3">
+
+        <div class="divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+             new { genre = "TV Movie" })'>
+                <img src=@tv width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("TV Show", "Genre", "Movies",
+                 new { genre = "TV Movie" }, null)
+                </h5>
+        </div>
+
+        <div class="divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+             new { genre = "War" })'>
+                <img src=@war width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("War", "Genre", "Movies",
+                 new { genre = "War" }, null)
+                </h5>
+        </div>
+
+        <div class="divBorder" style="margin:auto">
+            <a href='@Url.Action("Genre", "Movies",
+             new { genre = "Western" })'>
+                <img src=@western width="200" height="200" />
+            </a>
+            <h5 style="text-align:center">
+                    @Html.ActionLink("Western", "Genre", "Movies",
+                 new { genre = "Western" }, null)
+                </h5>
+        </div>
+    </div>
+</div>
+
+
